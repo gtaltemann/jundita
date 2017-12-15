@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
+import { Link } from 'react-router';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
+  state = {
+    menuOpen: false,
+  };
+
+  handleMenuToggle = () => {
+    this.setState(({ menuOpen }) => ({ menuOpen: !menuOpen }));
+  };
+
   render() {
+    const { menuOpen } = this.state;
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <AppBar title="Jundita" onLeftIconButtonClick={this.handleMenuToggle} />
+          {menuOpen && (
+            <Paper style={{ display: 'inline-block', minWidth: 150, position: 'absolute' }}>
+              <Menu>
+                <MenuItem
+                  primaryText="Beans"
+                  onClick={this.handleMenuToggle}
+                  containerElement={<Link to="/" />}
+                />
+                <MenuItem
+                  primaryText="Add bean"
+                  onClick={this.handleMenuToggle}
+                  containerElement={<Link to="/beans" />}
+                />
+              </Menu>
+            </Paper>
+          )}
+          {this.props.children}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
-
-export default App;
