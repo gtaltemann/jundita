@@ -1,0 +1,8 @@
+{
+  "name": "jundita",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gtaltemann/jundita.git",
+  "author": "Gabriel Altemann",
+  "license": "MIT"
+}
