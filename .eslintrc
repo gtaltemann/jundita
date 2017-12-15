@@ -2,6 +2,9 @@
   "extends": "airbnb",
   "plugins": ["react", "import"],
   "parser": "babel-eslint",
+  "globals": {
+    "localStorage": true,
+  },
   "rules": {
     "quotes": 0,
     "react/jsx-filename-extension": 0
