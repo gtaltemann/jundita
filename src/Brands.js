@@ -1,16 +1,14 @@
 import React, { Component } from "react";
 import TextField from "material-ui/TextField";
-import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
-import Slider from "material-ui/Slider";
-import Dialog from "material-ui/Dialog";
 import { GridList } from "material-ui/GridList";
 import "./App.css";
 
 export default class Brands extends Component {
   state = {
     brandName: "",
-    brandDescription: ""
+    brandDescription: "",
+    brandPrice: 0
   };
 
   changeBrandName = e => {
@@ -23,12 +21,18 @@ export default class Brands extends Component {
     this.setState({ brandDescription });
   };
 
+  changeBrandPrice = e => {
+    const brandPrice = e.target.value;
+    this.setState({ brandPrice });
+  };
+
   handleSubmit = () => {
-    const { brandName, brandDescription, brandId } = this.state;
+    const { brandName, brandDescription, brandPrice } = this.state;
 
     const brand = {
       name: brandName,
-      description: brandDescription
+      description: brandDescription,
+      price: brandPrice
     };
 
     const currentBrands = JSON.parse(localStorage.getItem("brands")) || [];
@@ -45,16 +49,16 @@ export default class Brands extends Component {
         }}
       >
         <GridList
-          cols={2}
+          cols={1}
           cellHeight={200}
           padding={1}
           style={{
-            width: 500,
-            height: 450,
-            overflowY: "auto",
-            overflowX: "auto"
+            width: "100%",
+            height: "auto",
+            textAlign: "center"
           }}
         >
+          <h1 style={{ marginBottom: 0 }}>Brand Registration</h1>
           <form onSubmit={this.handleSubmit}>
             <TextField
               floatingLabelText="Brand Name"
@@ -70,6 +74,14 @@ export default class Brands extends Component {
               id="product-description"
             />
             <br />
+            <TextField
+              floatingLabelText="Bale Price (in R$)"
+              hintText="30kg bale price"
+              type="number"
+              onChange={this.changeBrandPrice}
+              id="bale-price"
+            />
+            <br />
             <RaisedButton
               type="submit"
               label="OK"
@@ -82,4 +94,3 @@ export default class Brands extends Component {
     );
   }
 }
-
